@@ -30,6 +30,7 @@ export const emptySettings: ISettings = {
 
   fullscreenFilter: true,
   countMax: 5,
+  showPlayset: false,
 };
 
 export const emptySave: ISave = {

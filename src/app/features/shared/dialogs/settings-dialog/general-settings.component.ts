@@ -74,6 +74,14 @@ import { SettingsRowComponent } from '../../settings-row.component';
       <digimon-settings-row title="Collection Filter Max">
         <p-inputNumber [(ngModel)]="collectionFilterMax" mode="decimal"></p-inputNumber>
       </digimon-settings-row>
+      <digimon-settings-row title="Playset Indicator">
+        <p-selectButton
+          [allowEmpty]="false"
+          [(ngModel)]="showPlayset"
+          [options]="yesNoOptions"
+          optionLabel="label"
+          optionValue="value"></p-selectButton>
+      </digimon-settings-row>
       <digimon-settings-row title="Version Default Filter">
         <digimon-multi-buttons
           (clickEvent)="changeVersionFilterDefault($event)"
@@ -180,6 +188,7 @@ export class GeneralSettingsComponent {
   collectionCount = 1;
   aaCollectionCount = 1;
   collectionFilterMax = 5;
+  showPlayset = false;
 
   yesNoOptions = [
     { label: 'Yes', value: true },
@@ -255,6 +264,7 @@ export class GeneralSettingsComponent {
         collectionSets: this.setGoal,
         fullscreenFilter: this.fullscreenFilter,
         countMax: this.collectionFilterMax,
+        showPlayset: this.showPlayset,
 
         showNormalCards: this.versionFilterDefault.includes('Normal'),
         showAACards: this.versionFilterDefault.includes('Alternative Art'),
