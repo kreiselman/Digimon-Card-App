@@ -26,6 +26,7 @@ export const SaveStore = signalStore(
     collectionMode: computed(() => save.settings().collectionMode),
     collectionMinimum: computed(() => save.settings().collectionMinimum),
     aaCollectionMinimum: computed(() => save.settings().aaCollectionMinimum),
+    showPlayset: computed(() => save.settings().showPlayset),
     displaySideDeck: computed(() => save.settings().displaySideDeck),
     collection: computed(() => save.collection()),
     decks: computed(() => save.decks()),

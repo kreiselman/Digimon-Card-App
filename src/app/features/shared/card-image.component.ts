@@ -4,6 +4,7 @@ import { ImgFallbackDirective } from '@directives';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { DigimonCard, dummyCard } from '@models';
 import { SaveStore } from '@store';
+import { getTotalCount, getPlaysetAmount } from '../../functions/playset.functions'
 
 @Component({
   selector: 'digimon-card-image',
@@ -48,6 +49,8 @@ export class CardImageComponent {
   collectionMinimum = this.saveStore.collectionMinimum;
   aaCollectionMinimum = this.saveStore.aaCollectionMinimum;
   collectionMode = this.saveStore.collectionMode;
+  showPlayset = this.saveStore.showPlayset;
+  collection = this.saveStore.collection;
 
   cardBorder = '2px solid black';
   cardRadius = '5px';
@@ -88,6 +91,9 @@ export class CardImageComponent {
   setGrayScale(): boolean | undefined {
     if (this.card.version !== 'Normal') {
       return this.count < this.aaCollectionMinimum() && this.collectionMode();
+    }
+    else if (this.showPlayset()) {
+      return getTotalCount(this.card.id, this.collection()) < getPlaysetAmount(this.card) && this.collectionMode()
     }
     return this.count < this.collectionMinimum() && this.collectionMode();
   }

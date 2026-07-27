@@ -6,7 +6,7 @@ import { DialogModule } from 'primeng/dialog';
 import { DragDropModule } from 'primeng/dragdrop';
 import { SidebarModule } from 'primeng/sidebar';
 import { SkeletonModule } from 'primeng/skeleton';
-import { ColorMap, DigimonCard, DRAG, dummyCard, ICountCard, IDraggedCard } from '@models';
+import { DigimonCard, DRAG, dummyCard, ICountCard, IDraggedCard } from '@models';
 import { IntersectionListenerDirective } from '@directives';
 import { filterCards, withoutJ } from '@functions';
 import { DialogStore } from '@store';
@@ -38,7 +38,7 @@ import { FilterStore } from '@store';
         @for (card of showCards; track $index) {
           @defer (on viewport) {
             <digimon-full-card
-              [style]="{ 'width': widthForm.value + 'rem', 'border': this.displayPlayset(card.id)}"
+              [style]="{ width: widthForm.value + 'rem'}"
               class="m-0.5 md:m-1 flex items-center justify-center self-start"
               [card]="card"
               [count]="getCount(card.id)"
@@ -93,10 +93,6 @@ export class PaginationCardListComponent {
   dialogStore = inject(DialogStore);
   filterStore = inject(FilterStore);
 
-  // colorMap = ColorMap;
-  // borderColor: string =;
-  
-
   draggedCard = this.websiteStore.draggedCard;
   collection = this.saveStore.collection;
 
@@ -110,7 +106,6 @@ export class PaginationCardListComponent {
   page = 1;
   filteredCards = this.digimonCardStore.filteredCards;
   showCards: DigimonCard[] = [];
-  showPlayset = this.saveStore.settings().showPlayset;
 
   onFilterChange = effect(() => {
     if (this.inputCollection.length === 0) return;
@@ -152,48 +147,6 @@ export class PaginationCardListComponent {
       return this.collection().find((value) => value.id === withoutJ(cardId))?.count ?? 0;
     }
     return this.inputCollection.find((value) => value.id === withoutJ(cardId))?.count ?? 0;
-  }
-
-  getTotalCount(cardId: string) {
-    const foundCards = this.saveStore.collection().filter((colCard) => this.removeP(colCard.id) === cardId);
-
-    let count = 0;
-    foundCards?.forEach((found) => {
-      count += found.count;
-    });
-    this.numForPlayset(cardId)
-    return count;
-  }
-
-  removeP(id: string): string {
-    if (!id.includes('_P')) {
-      return id;
-    }
-    return id.split('_P')[0];
-  }
-
-  numForPlayset(cardId: string): number {
-    const card: DigimonCard = this.digimonCardStore.cards().find((value) => value.id === withoutJ(cardId));
-    switch (card.restrictions.english) {
-      case 'Restricted to 1':
-      case 'Banned':
-        return 1;
-      case 'Unrestricted':
-      default:
-        return 4;
-    }
-  }
-
-  displayPlayset(cardId: string): string {
-    if (!this.showPlayset) {
-      return 'none'
-    }
-    else {
-      const playsetNum = this.numForPlayset(cardId)
-      const cardCount = this.getTotalCount(cardId)
-
-      return cardCount >= playsetNum ? '3px solid red' : 'none'
-    }
   }
 
   viewCard(card: DigimonCard) {

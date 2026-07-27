@@ -5,7 +5,7 @@ export interface ISettings {
   collectionSets: string[]; // Which Sets do you want to collect ---- default = All
   collectionMinimum: number; // How many cards do you want to collect to color it ---- default = 1
   aaCollectionMinimum: number; // How many aa cards do you want to collect to color it ---- default = 1
-  showPlayset: boolean; //Show border around cards to represent you own a playset across all variants
+  showPlayset: boolean; // Colors normal art cards to represent that you own a playset across all variants. ---- default = false 
 
   showNormalCards: boolean; // Show Normal Cards ---- default = false
   showAACards: boolean; // Show AA Cards ---- default = false
