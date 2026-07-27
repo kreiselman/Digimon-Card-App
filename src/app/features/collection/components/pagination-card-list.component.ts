@@ -38,7 +38,7 @@ import { FilterStore } from '@store';
         @for (card of showCards; track $index) {
           @defer (on viewport) {
             <digimon-full-card
-              [style]="{ width: widthForm.value + 'rem'}"
+              [style]="{ width: widthForm.value + 'rem' }"
               class="m-0.5 md:m-1 flex items-center justify-center self-start"
               [card]="card"
               [count]="getCount(card.id)"
